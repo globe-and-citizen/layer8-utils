@@ -1,7 +1,7 @@
 package utilities
 
 import (
-	"layer8-proxy/constants"
+	"errors"
 	"log"
 	"regexp"
 
@@ -13,7 +13,7 @@ func ValidateRequiredFields(s interface{}) error {
 	err := validator.Validate(s)
 	if err != nil {
 		log.Println(err.(validator.ErrorMap))
-		return constants.ErrMissingFields
+		return errors.New("missing fields")
 	}
 	return nil
 }
@@ -22,7 +22,7 @@ func ValidateRequiredFields(s interface{}) error {
 func ValidateEmail(email string) error {
 	regex := regexp.MustCompile(`^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,4}$`)
 	if !regex.MatchString(email) {
-		return constants.ErrInvalidEmail
+		return errors.New("invalid email")
 	}
 	return nil
 }
