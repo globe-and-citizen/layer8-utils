@@ -21,7 +21,7 @@ import (
 )
 
 // AuthCodeClaims represents the claims of an auth code
-type AuthCodeClaims struct {
+type AuthCodeClaimsDep struct {
 	ClientID    string `json:"cid"`
 	UserID      int64  `json:"uid"`
 	RedirectURI string `json:"ruri"`
@@ -31,7 +31,7 @@ type AuthCodeClaims struct {
 }
 
 // GenerateRandomString generates random bytes and encodes them to a hex string
-func GenerateRandomString(count int) (string, error) {
+func GenerateRandomStringDep(count int) (string, error) {
 	buf := make([]byte, count)
 	_, err := io.ReadFull(rand.Reader, buf)
 	if err != nil {
@@ -46,7 +46,7 @@ func GenerateRandomString(count int) (string, error) {
 //	Args:
 //		secret: secret key
 //		claims: auth code claims
-func GenerateAuthCode(secret string, claims *AuthCodeClaims) (string, error) {
+func GenerateAuthCodeDep(secret string, claims *AuthCodeClaims) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	tokenString, err := token.SignedString([]byte(secret))
 	if err != nil {
@@ -60,7 +60,7 @@ func GenerateAuthCode(secret string, claims *AuthCodeClaims) (string, error) {
 //	Args:
 //		secret: secret key
 //		code: auth code
-func DecodeAuthCode(secret, code string) (*AuthCodeClaims, error) {
+func DecodeAuthCodeDep(secret, code string) (*AuthCodeClaims, error) {
 	token, err := jwt.ParseWithClaims(code, &AuthCodeClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(secret), nil
 	})
@@ -78,7 +78,7 @@ func DecodeAuthCode(secret, code string) (*AuthCodeClaims, error) {
 }
 
 // GenerateUserToken generates a JWT token for a user
-func GenerateUserToken(secret string, userID int64) (string, error) {
+func GenerateUserTokenDep(secret string, userID int64) (string, error) {
 	claims := &jwt.StandardClaims{
 		Subject:   fmt.Sprintf("%d", userID),
 		ExpiresAt: jwt.TimeFunc().Add(time.Hour * 24 * 7).Unix(), // expires in 7 days
@@ -92,7 +92,7 @@ func GenerateUserToken(secret string, userID int64) (string, error) {
 }
 
 // VerifyUserToken verifies a JWT token for a user and returns the user ID
-func VerifyUserToken(secret, token string) (int64, error) {
+func VerifyUserTokenDep(secret, token string) (int64, error) {
 	claims := &jwt.StandardClaims{}
 	_, err := jwt.ParseWithClaims(token, claims, func(token *jwt.Token) (interface{}, error) {
 		return []byte(secret), nil
@@ -119,7 +119,7 @@ var (
 )
 
 // GenerateKeyPair generates a public/private key pair using the P-256 curve
-func GenerateKeyPair(algo Algorithm) (crypto.PrivateKey, crypto.PublicKey, error) {
+func GenerateKeyPairDep(algo Algorithm) (crypto.PrivateKey, crypto.PublicKey, error) {
 	switch algo {
 	case ECDSA_ALGO:
 		pri, err := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)

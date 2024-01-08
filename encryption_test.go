@@ -98,7 +98,7 @@ func TestGenerateUserToken_VerifyserToken(t *testing.T) {
 
 func TestEncodePublicKey_DecodePublicKey(t *testing.T) {
 	// key generation
-	_, pub, err := GenerateKeyPair(ECDH_ALGO)
+	_, pub, err := GenerateKeyPairDep(ECDH_ALGO)
 	if err != nil {
 		t.Errorf("GenerateKeyPair() = %v", err)
 	}
@@ -114,11 +114,11 @@ func TestEncodePublicKey_DecodePublicKey(t *testing.T) {
 
 func TestDeriveSharedSecret_SymmetricEncrypt_SymmetricDecrypt(t *testing.T) {
 	// key generation
-	pri1, pub1, err := GenerateKeyPair(ECDH_ALGO)
+	pri1, pub1, err := GenerateKeyPairDep(ECDH_ALGO)
 	if err != nil {
 		t.Errorf("GenerateKeyPair() = %v", err)
 	}
-	pri2, pub2, err := GenerateKeyPair(ECDH_ALGO)
+	pri2, pub2, err := GenerateKeyPairDep(ECDH_ALGO)
 	if err != nil {
 		t.Errorf("GenerateKeyPair() = %v", err)
 	}
@@ -144,7 +144,7 @@ func TestDeriveSharedSecret_SymmetricEncrypt_SymmetricDecrypt(t *testing.T) {
 
 func TestSignMessage_VerifySignature(t *testing.T) {
 	// key pair
-	pri, pub, err := GenerateKeyPair(ECDSA_ALGO)
+	pri, pub, err := GenerateKeyPairDep(ECDSA_ALGO)
 	if err != nil {
 		t.Errorf("GenerateKeyPair() = %v", err)
 	}
