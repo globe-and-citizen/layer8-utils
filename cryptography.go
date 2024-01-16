@@ -438,7 +438,7 @@ func SignData(JWK *JWK, data []byte) ([]byte, error) {
 func (JWK *JWK) ExportAsBase64() (string, error) {
 	marshalled, err := json.Marshal(JWK)
 	if err != nil {
-		return "", fmt.Errorf("Failure to export JWK as Base64 %w", err.Error())
+		return "", fmt.Errorf("Failure to export JWK as Base64 %w", err)
 	}
 
 	return base64.URLEncoding.EncodeToString(marshalled), nil
@@ -447,12 +447,12 @@ func (JWK *JWK) ExportAsBase64() (string, error) {
 func B64ToJWK(userPubJWK string) (*JWK, error) {
 	userPubJWK_BS, err := base64.URLEncoding.DecodeString(userPubJWK)
 	if err != nil {
-		return nil, fmt.Errorf("Failure to decode userPubJWK", err.Error())
+		return nil, fmt.Errorf("Failure to decode userPubJWK, %w", err)
 	}
 	userPubJWKConverted := &JWK{}
 	err = json.Unmarshal(userPubJWK_BS, userPubJWKConverted)
 	if err != nil {
-		return nil, fmt.Errorf("Failure to unmarshal userPubJWK: ", err.Error())
+		return nil, fmt.Errorf("Failure to unmarshal userPubJWK: %w", err)
 	}
 	return userPubJWKConverted, nil
 }
