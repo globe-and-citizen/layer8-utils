@@ -1,6 +1,6 @@
 module github.com/globe-and-citizen/layer8-utils
 
-go 1.19
+go 1.21
 
 require (
 	github.com/aead/ecdh v0.2.0
