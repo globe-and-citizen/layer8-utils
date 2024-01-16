@@ -3,7 +3,6 @@ package utilities
 import (
 	"crypto/rand"
 	"encoding/base64"
-	"encoding/hex"
 	"testing"
 	"time"
 
@@ -14,7 +13,7 @@ func TestGenerateRandomString(t *testing.T) {
 	t.Run("generate random bytes", func(t *testing.T) {
 		str, err := GenerateRandomString(32)
 		assert.NoError(t, err)
-		buf, err := hex.DecodeString(str)
+		buf, err := base64.URLEncoding.DecodeString(str)
 		assert.NoError(t, err)
 		assert.Equal(t, 32, len(buf))
 	})
