@@ -11,16 +11,29 @@ on:
     branches: 
       - development
 
+      
 jobs:
   Run_Unit_Tests:
     runs-on: windows-latest
     steps: 
-      - name: Install Go
-        uses: actions/setup-go@v5
-      - name: checkout
-        uses: actions/checkout@v4
-      - name: Download Go dependencies
-        run: go mod tidy
+      - uses: actions/checkout@v3
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.19'
       - name: "Run Unit Tests"
         run:  go test -v ./...
+
+# jobs:
+#   Run_Unit_Tests:
+#     runs-on: windows-latest
+#     steps: 
+#       - name: Install Go
+#         uses: actions/setup-go@v5
+#       - name: checkout
+#         uses: actions/checkout@v4
+#       - name: Download Go dependencies
+#         run: go mod tidy
+#       - name: "Run Unit Tests"
+#         run:  go test -v ./...
 
