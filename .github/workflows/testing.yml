@@ -5,6 +5,7 @@ on:
   pull_request:
     types:
       - opened
+      - reopened
     branches: 
       - development
 
@@ -15,7 +16,7 @@ jobs:
       - name: Install Go
         uses: actions/setup-go@v5
       - name: checkout
-        uses: actions/checkout@4
+        uses: actions/checkout@v4
       - name: "Run Unit Tests"
         run:  go test -v ./...
 
