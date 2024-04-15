@@ -13,11 +13,12 @@ import (
 
 // AuthCodeClaims represents the claims of an auth code
 type AuthCodeClaims struct {
-	ClientID    string `json:"cid"`
-	UserID      int64  `json:"uid"`
-	RedirectURI string `json:"ruri"`
-	Scopes      string `json:"scp"`
-	ExpiresAt   int64  `json:"exp"`
+	ClientID    string            `json:"cid"`
+	UserID      int64             `json:"uid"`
+	RedirectURI string            `json:"ruri"`
+	Scopes      string            `json:"scp"`
+	ExpiresAt   int64             `json:"exp"`
+	HeaderMap   map[string]string `json:"hmap"`
 	jwt.StandardClaims
 }
 
