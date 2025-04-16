@@ -7,6 +7,15 @@ import (
 	"strings"
 )
 
+type EmptyObj struct{}
+
+type ResponseV2 struct {
+	Status  bool        `json:"status"`
+	Message string      `json:"message"`
+	Error   []string    `json:"error"`
+	Data    interface{} `json:"data"`
+}
+
 func BuildErrorResponse(message string, err string, data interface{}) ResponseV2 {
 	splittedError := strings.Split(err, "\n")
 	res := ResponseV2{
